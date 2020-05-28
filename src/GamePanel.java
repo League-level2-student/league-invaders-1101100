@@ -19,6 +19,8 @@ final int END = 2;
 int currentState = MENU;
 Font titleFont;
 Font normalFont;
+RocketShip rocketShip = new RocketShip(225, 700, 50, 50);
+
 	
 	public GamePanel() {
 		frameDraw = new Timer(1000/60,this);
@@ -65,6 +67,7 @@ Font normalFont;
 	void drawGameState(Graphics g) {  
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
+		rocketShip.draw(g);
 	}
 	void drawEndState(Graphics g)  {  
 		g.setColor(Color.RED);
