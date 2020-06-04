@@ -2,10 +2,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class RocketShip extends GameObject {
-
+	int speed;
 	public RocketShip(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		
+		speed = 10;
 	}
 
 	void update() {
@@ -16,15 +16,15 @@ public class RocketShip extends GameObject {
 	      g.fillRect(x, y, width, height);
 	}
 	 public void right() {
-	        x+=speed;
+	        x += speed;
 	    }
 	 public void left() {
-	        x+=speed;
+		 	x -= speed;
 	    }
 	 public void up() {
-	        x+=speed;
+		 	y -= speed;
 	    }
 	 public void down() {
-	        x+=speed;
+		 	y += speed;
 	    }
 }

@@ -20,7 +20,7 @@ int currentState = MENU;
 Font titleFont;
 Font normalFont;
 RocketShip rocketShip = new RocketShip(225, 700, 50, 50);
-
+ObjectManager objectManager = new ObjectManager(rocketShip);
 	
 	public GamePanel() {
 		frameDraw = new Timer(1000/60,this);
@@ -45,7 +45,7 @@ RocketShip rocketShip = new RocketShip(225, 700, 50, 50);
 	}
 	
 	void updateGameState() { 
-		
+		objectManager.update();
 		
 	}
 	
@@ -55,7 +55,7 @@ RocketShip rocketShip = new RocketShip(225, 700, 50, 50);
 			
 	}
 	void drawMenuState(Graphics g) {  
-		g.setColor(Color.BLUE);
+		g.setColor(Color.BLUE);	
 		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
 		g.setColor(Color.WHITE);
 		g.setFont(titleFont);
@@ -67,7 +67,7 @@ RocketShip rocketShip = new RocketShip(225, 700, 50, 50);
 	void drawGameState(Graphics g) {  
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
-		rocketShip.draw(g);
+		objectManager.draw(g);
 	}
 	void drawEndState(Graphics g)  {  
 		g.setColor(Color.RED);
@@ -108,8 +108,19 @@ RocketShip rocketShip = new RocketShip(225, 700, 50, 50);
 		        currentState++;
 		    }
 		} 
-		if (e.getKeyCode()==KeyEvent.VK_UP) {
-		    System.out.println("UP");
+		if (currentState == GAME) {
+			if (e.getKeyCode() == KeyEvent.VK_UP) {
+				rocketShip.up();
+			}
+			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				rocketShip.down();
+			}
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				rocketShip.right();
+			}
+			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				rocketShip.left();
+			}
 		}
 	}
 
