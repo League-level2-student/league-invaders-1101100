@@ -12,8 +12,7 @@ public class RocketShip extends GameObject {
 
 	}
 	void draw(Graphics g) {
-		  g.setColor(Color.BLUE);
-	      g.fillRect(x, y, width, height);
+		g.drawImage(GamePanel.rocketImg, x, y, width, height, null);
 	}
 	 public void right() {
 	        x += speed;
@@ -27,4 +26,7 @@ public class RocketShip extends GameObject {
 	 public void down() {
 		 	y += speed;
 	    }
+	 public Projectile getProjectile() {
+	        return new Projectile(x+width/2, y, 10, 10);
+	} 
 }

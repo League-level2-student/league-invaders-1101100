@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -21,12 +24,25 @@ Font titleFont;
 Font normalFont;
 RocketShip rocketShip = new RocketShip(225, 700, 50, 50);
 ObjectManager objectManager = new ObjectManager(rocketShip);
-	
+public static BufferedImage alienImg;
+public static BufferedImage rocketImg;
+public static BufferedImage bulletImg;
+public static BufferedImage spaceImg;
+
 	public GamePanel() {
 		frameDraw = new Timer(1000/60,this);
 	    frameDraw.start();
 		titleFont = new Font("Ubuntu", Font.BOLD, 56);
 		normalFont = new Font("Ubuntu", Font.PLAIN, 24);
+		try {
+            alienImg = ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
+            rocketImg = ImageIO.read(this.getClass().getResourceAsStream("rocket.png"));
+            bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
+            spaceImg = ImageIO.read(this.getClass().getResourceAsStream("space.png"));
+		} catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -67,6 +83,7 @@ ObjectManager objectManager = new ObjectManager(rocketShip);
 	void drawGameState(Graphics g) {  
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
+		g.drawImage(GamePanel.spaceImg, 0, 0, LeagueInvaders.width, LeagueInvaders.height, null);
 		objectManager.draw(g);
 	}
 	void drawEndState(Graphics g)  {  
@@ -96,7 +113,7 @@ ObjectManager objectManager = new ObjectManager(rocketShip);
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
+	}	
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -121,6 +138,9 @@ ObjectManager objectManager = new ObjectManager(rocketShip);
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 				rocketShip.left();
 			}
+		}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			objectManager.addProjectile(rocketShip.getProjectile());
 		}
 	}
 

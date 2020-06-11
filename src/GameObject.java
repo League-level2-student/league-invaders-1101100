@@ -13,6 +13,11 @@ public class GameObject {
 	
 		}
 		void update() {
+		
 	
+		}
+		void draw() {
+			
+			
 		}
 }

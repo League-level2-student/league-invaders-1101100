@@ -1,11 +1,16 @@
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ObjectManager {
+public class ObjectManager implements ActionListener {
 	RocketShip rocketShip;
 	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	ArrayList<Alien> aliens = new ArrayList<Alien>();
+	long enemyTimer = 0;
+	int enemySpawnTime = 1000;
+	int score = 0;
 
 	public ObjectManager(RocketShip rocketShip) {
 		this.rocketShip = rocketShip;
@@ -36,6 +41,7 @@ public class ObjectManager {
 			aliens.get(i).draw(g);
 		}
 	}
+	
 	void purgeObjects() {
 		for (int i = 0; i < projectiles.size(); i++) {
 			if (projectiles.get(i).isAlive == false) {
@@ -47,5 +53,12 @@ public class ObjectManager {
 				aliens.remove(i);
 			}
 		}
+	}
+
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
