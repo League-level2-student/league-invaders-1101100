@@ -11,7 +11,9 @@ public class ObjectManager implements ActionListener {
 	long enemyTimer = 0;
 	int enemySpawnTime = 1000;
 	int score = 0;
-
+	int getScore() {
+		return score;
+	}
 	public ObjectManager(RocketShip rocketShip) {
 		this.rocketShip = rocketShip;
 	}
@@ -19,8 +21,9 @@ public class ObjectManager implements ActionListener {
 		projectiles.add(projectile);
 	}
 
-	void addAlien(Alien alien) {
-		aliens.add(alien);
+	void addAlien() {
+		Random random = new Random();
+		aliens.add(new Alien(random.nextInt(LeagueInvaders.width),0,50,50));
 	}
 	void update() {
 		rocketShip.update();
@@ -30,6 +33,8 @@ public class ObjectManager implements ActionListener {
 		for (int i = 0; i < aliens.size(); i++) {
 			aliens.get(i).update();
 		}
+		checkCollision();
+		purgeObjects();
 	}
 
 	void draw(Graphics g) {
@@ -54,11 +59,23 @@ public class ObjectManager implements ActionListener {
 			}
 		}
 	}
-
+	void checkCollision() {
+		for( int i = 0; i<aliens.size();i++) {
+			for( int j = 0; j<projectiles.size();j++) {
+				if(aliens.get(i).collisionBox.intersects(projectiles.get(j).collisionBox)) {
+					aliens.get(i).isAlive = false;
+					System.out.println("alien destroyed");
+					projectiles.get(j).isAlive = false;
+					score++;
+				}
+			}
+		}
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		addAlien();
 		
 	}
 }

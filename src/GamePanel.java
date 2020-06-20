@@ -28,7 +28,13 @@ public static BufferedImage alienImg;
 public static BufferedImage rocketImg;
 public static BufferedImage bulletImg;
 public static BufferedImage spaceImg;
+Timer alienSpawn;
+boolean autofire = false;
 
+	void startGame() {
+	 alienSpawn = new Timer(1000 , objectManager);
+	    alienSpawn.start();
+	}
 	public GamePanel() {
 		frameDraw = new Timer(1000/60,this);
 	    frameDraw.start();
@@ -121,8 +127,14 @@ public static BufferedImage spaceImg;
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 		    if (currentState == END) {
 		        currentState = MENU;
+		        alienSpawn.stop();
+		        rocketShip = new RocketShip(250, 700, 50,50);
+		    	objectManager = new ObjectManager(rocketShip);
 		    } else {
 		        currentState++;
+		    }
+		    if(currentState ==GAME) {
+		    	startGame();
 		    }
 		} 
 		if (currentState == GAME) {
