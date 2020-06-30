@@ -11,12 +11,15 @@ public class ObjectManager implements ActionListener {
 	long enemyTimer = 0;
 	int enemySpawnTime = 1000;
 	int score = 0;
+	
 	int getScore() {
 		return score;
 	}
+	
 	public ObjectManager(RocketShip rocketShip) {
 		this.rocketShip = rocketShip;
 	}
+	
 	void addProjectile(Projectile projectile) {
 		projectiles.add(projectile);
 	}
@@ -25,6 +28,7 @@ public class ObjectManager implements ActionListener {
 		Random random = new Random();
 		aliens.add(new Alien(random.nextInt(LeagueInvaders.width),0,50,50));
 	}
+	
 	void update() {
 		rocketShip.update();
 		for (int i = 0; i < projectiles.size(); i++) {
@@ -59,14 +63,18 @@ public class ObjectManager implements ActionListener {
 			}
 		}
 	}
+	
 	void checkCollision() {
-		for( int i = 0; i<aliens.size();i++) {
-			for( int j = 0; j<projectiles.size();j++) {
-				if(aliens.get(i).collisionBox.intersects(projectiles.get(j).collisionBox)) {
-					aliens.get(i).isAlive = false;
-					System.out.println("alien destroyed");
-					projectiles.get(j).isAlive = false;
-					score++;
+		for (Alien a : aliens) {
+			if (rocketShip.collisionBox.intersects(a.collisionBox)) {
+				rocketShip.isAlive = false;
+			} else {
+				for (Projectile p : projectiles) {
+					if (p.collisionBox.intersects(a.collisionBox)) {
+						a.isAlive = false;
+						p.isAlive = false;
+						score++;
+					}
 				}
 			}
 		}

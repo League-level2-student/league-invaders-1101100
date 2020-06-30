@@ -5,7 +5,7 @@ public class RocketShip extends GameObject {
 	int speed;
 	public RocketShip(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		speed = 10;
+		speed = 30;
 	}
 
 	void update() {
@@ -15,9 +15,15 @@ public class RocketShip extends GameObject {
 		g.drawImage(GamePanel.rocketImg, x, y, width, height, null);
 	}
 	 public void right() {
+		 if (x>=450) {
+			 x=450;
+		 }
 	        x += speed;
 	    }
 	 public void left() {
+		 if (x<=0) {
+			 x=0;
+		 }
 		 	x -= speed;
 	    }
 	 public void up() {

@@ -32,7 +32,7 @@ Timer alienSpawn;
 boolean autofire = false;
 
 	void startGame() {
-	 alienSpawn = new Timer(1000 , objectManager);
+		alienSpawn = new Timer(1500 , objectManager);
 	    alienSpawn.start();
 	}
 	public GamePanel() {
