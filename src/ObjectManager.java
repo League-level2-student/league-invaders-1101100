@@ -26,7 +26,7 @@ public class ObjectManager implements ActionListener {
 
 	void addAlien() {
 		Random random = new Random();
-		aliens.add(new Alien(random.nextInt(LeagueInvaders.width),0,50,50));
+		aliens.add(new Alien(random.nextInt(),0,50,50));
 	}
 	
 	void update() {

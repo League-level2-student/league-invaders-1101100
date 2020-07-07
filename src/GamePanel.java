@@ -98,6 +98,7 @@ boolean autofire = false;
 		g.setColor(Color.WHITE);
 		g.setFont(titleFont);
 		g.drawString("You Lost!", (int) (LeagueInvaders.width/4.5), (int) (LeagueInvaders.height*0.375));
+		g.drawString("You killed "+objectManager.getScore()+ " ", 100, 400);
 
 	}
 
@@ -124,19 +125,18 @@ boolean autofire = false;
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-		    if (currentState == END) {
-		        currentState = MENU;
-		        alienSpawn.stop();
-		        rocketShip = new RocketShip(250, 700, 50,50);
-		    	objectManager = new ObjectManager(rocketShip);
-		    } else {
-		        currentState++;
-		    }
-		    if(currentState ==GAME) {
-		    	startGame();
-		    }
-		} 
+
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (currentState == MENU) {
+				currentState = GAME;
+				startGame();
+			} else if (currentState == END) {
+				currentState = MENU;
+				rocketShip = new RocketShip(225, 700, 50, 50);
+				objectManager = new ObjectManager(rocketShip);
+			}
+		}
+	
 		if (currentState == GAME) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				rocketShip.up();
@@ -155,6 +155,7 @@ boolean autofire = false;
 			objectManager.addProjectile(rocketShip.getProjectile());
 		}
 	}
+
 
 	@Override
 	public void keyReleased(KeyEvent e) {
