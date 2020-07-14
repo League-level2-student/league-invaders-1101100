@@ -125,16 +125,18 @@ boolean autofire = false;
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if (currentState == MENU) {
-				currentState = GAME;
-				startGame();
-			} else if (currentState == END) {
-				currentState = MENU;
-				rocketShip = new RocketShip(225, 700, 50, 50);
-				objectManager = new ObjectManager(rocketShip);
-			}
+		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+		    if (currentState == END) {
+		        currentState = MENU;
+		        alienSpawn.stop();
+		    	rocketShip = new RocketShip(225, 700, 50, 50);
+		    	objectManager = new ObjectManager(rocketShip);
+		    } else {
+		        currentState++;
+		    }
+		    if(currentState ==GAME) {
+		    	startGame();
+		    }
 		}
 	
 		if (currentState == GAME) {
