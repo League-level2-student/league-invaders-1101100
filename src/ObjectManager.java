@@ -23,7 +23,7 @@ public class ObjectManager implements ActionListener {
 
 	void addAlien() {
 		Random random = new Random();
-		aliens.add(new Alien(random.nextInt(),0,50,50));
+		aliens.add(new Alien(random.nextInt(450),0,50,50));
 	}
 	void update() {
 		rocketShip.update();
@@ -49,12 +49,12 @@ public class ObjectManager implements ActionListener {
 	
 	void purgeObjects() {
 		for (int i = 0; i < projectiles.size(); i++) {
-			if (projectiles.get(i).isAlive == false) {
+			if (projectiles.get(i).isActive == false) {
 				projectiles.remove(i);
 			}
 		}
 		for (int i = 0; i < aliens.size(); i++) {
-			if (aliens.get(i).isAlive == false) {
+			if (aliens.get(i).isActive == false) {
 				aliens.remove(i);
 			}
 		}
@@ -63,11 +63,18 @@ public class ObjectManager implements ActionListener {
 		for( int i = 0; i<aliens.size();i++) {
 			for( int j = 0; j<projectiles.size();j++) {
 				if(aliens.get(i).collisionBox.intersects(projectiles.get(j).collisionBox)) {
-					aliens.get(i).isAlive = false;
+					aliens.get(i).isActive = false;
 					System.out.println("alien destroyed");
-					projectiles.get(j).isAlive = false;
+					projectiles.get(j).isActive = false;
 					score++;
 				}
+			}
+		}
+		for(int i = 0; i<aliens.size(); i++) {
+			if(rocketShip.collisionBox.intersects(aliens.get(i).collisionBox)) {
+				rocketShip.isActive = false;
+				System.out.println("rocket destroyed");
+		
 			}
 		}
 	}
@@ -76,6 +83,7 @@ public class ObjectManager implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		addAlien();
+		System.out.println(aliens.size());
 		
 	}
 }

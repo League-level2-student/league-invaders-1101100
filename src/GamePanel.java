@@ -33,7 +33,7 @@ boolean autofire = false;
 
 	void startGame() {
 	 alienSpawn = new Timer(1000 , objectManager);
-	    alienSpawn.start();
+	 alienSpawn.start();
 	}
 	public GamePanel() {
 		frameDraw = new Timer(1000/60,this);
@@ -68,6 +68,9 @@ boolean autofire = false;
 	
 	void updateGameState() { 
 		objectManager.update();
+		if(rocketShip.isActive!=true) {
+			currentState= END;
+		}
 		
 	}
 	
@@ -84,7 +87,7 @@ boolean autofire = false;
 		g.drawString("League Invaders", LeagueInvaders.width / 28, (int) (LeagueInvaders.height * 0.25));
 		g.setFont(normalFont);
 		g.drawString("Press ENTER To Start", LeagueInvaders.width / 4, (int) (LeagueInvaders.height * 0.625));
-		g.drawString("Press SPACE For Instructions", LeagueInvaders.width / 6, (int) (LeagueInvaders.height * 0.75));
+
 	}
 	void drawGameState(Graphics g) {  
 		g.setColor(Color.BLACK);
@@ -97,7 +100,8 @@ boolean autofire = false;
 		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
 		g.setColor(Color.WHITE);
 		g.setFont(titleFont);
-		g.drawString("You Lost!", (int) (LeagueInvaders.width/4.5), (int) (LeagueInvaders.height*0.375));
+		g.drawString("You Lost!", (int) (LeagueInvaders.width/7.5), (int) (LeagueInvaders.height*0.375));
+		g.drawString("Enter to Restart", LeagueInvaders.width / 500, (int) (LeagueInvaders.height * 0.75));
 		g.drawString("You killed "+objectManager.getScore()+ " ", 100, 400);
 
 	}
@@ -129,15 +133,16 @@ boolean autofire = false;
 		    if (currentState == END) {
 		        currentState = MENU;
 		        alienSpawn.stop();
-		    	rocketShip = new RocketShip(225, 700, 50, 50);
+		        rocketShip = new RocketShip(250, 700, 50,50);
 		    	objectManager = new ObjectManager(rocketShip);
-		    } else {
+		    } 
+		    if (currentState == MENU){
 		        currentState++;
 		    }
-		    if(currentState ==GAME) {
+		    if(currentState == GAME) {
 		    	startGame();
 		    }
-		}
+		} 
 	
 		if (currentState == GAME) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
