@@ -11,10 +11,7 @@ public class Alien extends GameObject {
 
 	void update() {
 		super.update();
-		if(y>800) {
-			
-		}
-		y += 1;
+		y += 2;
 	}
 
 	void draw(Graphics g) {
