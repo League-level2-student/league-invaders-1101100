@@ -23,7 +23,8 @@ int currentState = MENU;
 Font titleFont;
 Font normalFont;
 RocketShip rocketShip = new RocketShip(225, 700, 50, 50);
-ObjectManager objectManager = new ObjectManager(rocketShip);
+Earth earth = new Earth (0,800,500,200);
+ObjectManager objectManager = new ObjectManager(rocketShip, earth);
 public static BufferedImage alienImg;
 public static BufferedImage rocketImg;
 public static BufferedImage bulletImg;
@@ -128,16 +129,16 @@ boolean autofire = false;
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 		    if (currentState == END) {
 		        currentState = MENU;
 		        alienSpawn.stop();
-		        rocketShip = new RocketShip(250, 700, 50,50);
-		    	objectManager = new ObjectManager(rocketShip);
+		      
 		    } 
 		    if (currentState == MENU){
 		        currentState++;
+		        rocketShip = new RocketShip(250, 700, 50,50);
+		    	objectManager = new ObjectManager(rocketShip, earth);
 		    }
 		    if(currentState == GAME) {
 		    	startGame();

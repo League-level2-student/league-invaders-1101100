@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class ObjectManager implements ActionListener {
 	RocketShip rocketShip;
+	Earth earth;
 	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	ArrayList<Alien> aliens = new ArrayList<Alien>();
 	long enemyTimer = 0;
@@ -14,8 +15,9 @@ public class ObjectManager implements ActionListener {
 	int getScore() {
 		return score;
 	}
-	public ObjectManager(RocketShip rocketShip) {
+	public ObjectManager(RocketShip rocketShip, Earth earth) {
 		this.rocketShip = rocketShip;
+		this.earth = earth;
 	}
 	void addProjectile(Projectile projectile) {
 		projectiles.add(projectile);
@@ -77,6 +79,13 @@ public class ObjectManager implements ActionListener {
 		
 			}
 		}
+		for(int i = 0; i<aliens.size(); i++) {
+			if (earth.collisionBox.intersects(aliens.get(i).collisionBox)) {
+				rocketShip.isActive = false;
+				System.out.println("earth destroyed");
+			}
+		}
+
 	}
 	
 	@Override
